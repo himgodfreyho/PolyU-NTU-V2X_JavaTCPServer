@@ -6,6 +6,7 @@ import java.io.PrintWriter;
 import java.net.Socket;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.io.ByteArrayOutputStream;
+import java.util.List;
 
 /*
  * Individual ServerThread listens for the client to tell it what command to run, then
@@ -30,18 +31,19 @@ public class ServerThread extends Thread {
 			EnvironmentMonitoringProtos.EnvironmentUpdate sensorData = EnvironmentMonitoringProtos.EnvironmentUpdate.parseFrom(input);
 			
 			System.out.println("SerializedSize: " + sensorData.getSerializedSize());
-			System.out.println("Total Sensor record: " + sensorData.getSensorRecordCount());
+			System.out.println("Total Sensor record recevied: " + sensorData.getSensorRecordCount());
 
 
-			// for (EnvironmentMonitoringProtos.EnvironmentUpdate.SensorRecord data: sensorData.getSensorRecordList()) {
-		 //      // print some record;
-		 //      System.out.println("Timestamp: " + data.getTimestamp());
-		 //      System.out.println("Temp: " + data.getTemperature());
-		 //      System.out.println("Humd: " + data.getRelativeHumidity());
-		 //      System.out.println("CO: " + data.getCarbonMonoxide());
-		 //      System.out.println("PM: " + data.getParticulateMatter());
-		 //      System.out.println("UV: " + data.getUltraviolet());
-		 //      }
+
+			for (EnvironmentMonitoringProtos.EnvironmentUpdate.SensorRecord data: sensorData.getSensorRecordList()) {
+		      List<EnvironmentMonitoringProtos.EnvironmentUpdate.SensorData> list = data.getSensorDataList();
+		      // print some record;
+		      System.out.println("Timestamp: " + data.getTimestamp());
+		      System.out.println("List: " + list);
+		      System.out.println("Key: " + list.get(1));
+
+		      
+		      }
 		}
 		catch (IOException e) {
 			e.printStackTrace();

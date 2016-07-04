@@ -17,6 +17,7 @@ public class ServerThread extends Thread {
 	Socket client = null;
 	PrintWriter output;
 	BufferedReader input;
+	int sn = 0;
 	
 	public ServerThread(Socket client) {
 		this.client = client;
@@ -38,9 +39,12 @@ public class ServerThread extends Thread {
 			for (EnvironmentMonitoringProtos.EnvironmentUpdate.SensorRecord data: sensorData.getSensorRecordList()) {
 		      List<EnvironmentMonitoringProtos.EnvironmentUpdate.SensorData> list = data.getSensorDataList();
 		      // print some record;
-		      System.out.println("Timestamp: " + data.getTimestamp());
-		      System.out.println("List: " + list);
-		      System.out.println("Key: " + list.get(1));
+		      System.out.println("SN: " + data.getSequenceNumber());
+		      // sn = data.getSequenceNumber();
+		      
+		      // System.out.println("Timestamp: " + data.getTimestamp());
+		      // System.out.println("List: " + list);
+		      // System.out.println("Key: " + list.get(1));
 
 		      
 		      }
